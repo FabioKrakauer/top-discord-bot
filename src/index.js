@@ -13,6 +13,7 @@ client.on('ready', () => {
 
 client.on('message', async msg => {
    if(msg.author.bot) return;
+   if(msg.channel.type == "dm") return;
    if(msg.content.startsWith("/top")){
         router.execute_command(client, msg);
    }
