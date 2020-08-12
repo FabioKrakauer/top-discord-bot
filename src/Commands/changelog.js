@@ -4,6 +4,7 @@ require('dotenv').config();
 module.exports = (client, args, sender) => {
     if(!sender.member._roles.includes(process.env.ADMIN_ROLE_ID)){
         utils.error(sender.author, 'Sem permissão! Infelizmente você não possui permissão para isto!');
+        return;
     }
     if(args.length < 4) {
         utils.error(sender.author, 'Comando inválido! Digite ' + process.env.COMMAND_PREFIX +' changelog {data} {mensagem}');

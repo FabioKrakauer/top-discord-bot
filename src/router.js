@@ -1,7 +1,8 @@
 const utils = require('./utils');
 
-const changeLogCommand = require('./Commands/changelog')
-const callStaffCommand = require('./Commands/staff')
+const changeLogCommand = require('./Commands/changelog');
+const callStaffCommand = require('./Commands/staff');
+const viewPilotsCommand = require('./Commands/pilots');
 
 const routes = {
     changelog(client, args, sender) {
@@ -9,6 +10,9 @@ const routes = {
     },
     chamarstaff(client, args, sender) {
         return callStaffCommand(client, args, sender);
+    },
+    pilotos(client, args, sender) {
+        viewPilotsCommand(client, args, sender);
     }
 }
 module.exports = {
