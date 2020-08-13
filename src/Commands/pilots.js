@@ -15,4 +15,3 @@ module.exports = async (client, args, sender) => {
     message += "`";
     sender.author.send(message);
 }
-
