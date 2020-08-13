@@ -8,7 +8,6 @@ const router = require("./router");
 client.on('ready', async () => {
     console.log(`Bot iniciado como: ${client.user.tag}!`);
     client.user.setActivity("BOT DA TOP LINHAS AÉREAS");
-
 });
 
 client.on('message', async msg => {
