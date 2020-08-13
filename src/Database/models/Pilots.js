@@ -1,4 +1,5 @@
 const { DataTypes } = require('sequelize');
+require('dotenv').config();
 
 module.exports = (sequelize) => {
     const Pilots = sequelize.define('pilots', {
@@ -27,7 +28,7 @@ module.exports = (sequelize) => {
             type: DataTypes.DOUBLE
         }
     }, {
-        tableName: 'phpvms_pilots',
+        tableName: process.env.TABLE_PREFIX+'pilots',
         freezeTableName: true,
         timestamps: false
     });

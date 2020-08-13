@@ -8,8 +8,20 @@ const sequelize = new Sequelize(process.env.MYSQL_DATABASE, process.env.MYSQL_US
 });
 
 const Pilots = require('./models/Pilots')(sequelize);
+const Aircraft = require('./models/Aircraft')(sequelize);
+const Schedules = require('./models/Schedules')(sequelize);
+
+Aircraft.hasMany(Schedules,{
+        foreignKey: 'id'
+    });
+Schedules.belongsTo(Aircraft,{
+    foreignKey: 'aircraft',
+    as: 'aeronave'
+});
 
 module.exports.sequelize = sequelize;
 module.exports.models = {
-    Pilots
+    Pilots,
+    Schedules,
+    Aircraft
 }
