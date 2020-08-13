@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 require('dotenv').config();
 
 module.exports = (sequelize) => {
-    const Schedules = sequelize.define('aircrafts', {
+    const Aircraft = sequelize.define('aircrafts', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -18,5 +18,5 @@ module.exports = (sequelize) => {
         freezeTableName: true,
         timestamps: false
     });
-    return Schedules;
+    return Aircraft;
 };
