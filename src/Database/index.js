@@ -13,20 +13,13 @@ const Schedules = require('./models/Schedules')(sequelize);
 const Bids = require('./models/Bids')(sequelize);
 
 Aircraft.hasMany(Schedules,{
-        foreignKey: 'id'
+        foreignKey: 'id',
     });
 Schedules.belongsTo(Aircraft,{
     foreignKey: 'aircraft',
-    as: 'aeronave'
-});
-
-Aircraft.hasMany(Bids,{
-    foreignKey: 'id'
-});
-Schedules.hasOne(Aircraft,{
-    foreignKey: 'aircraft',
     as: 'plane'
 });
+
 Pilots.hasOne(Bids, {foreignKey: 'pilotid'});
 // Bids.belongsTo(Aircraft, {
 //     foreignKey: 'aircraftid',

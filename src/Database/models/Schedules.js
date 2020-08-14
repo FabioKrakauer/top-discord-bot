@@ -19,12 +19,18 @@ module.exports = (sequelize) => {
         arricao: {
             type: DataTypes.STRING,
         },
-        aircraft: {
+        airplane: {
             type: DataTypes.INTEGER,
             field: 'aircraft',
             references: {
-                model: 'aircraft',
+                model: 'aircrafts',
             },
+        },
+        distance: {
+            type: DataTypes.INTEGER
+        },
+        enabled: {
+            type: DataTypes.INTEGER
         }
     }, {
         tableName: process.env.TABLE_PREFIX+'schedules',

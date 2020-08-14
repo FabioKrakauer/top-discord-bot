@@ -4,6 +4,7 @@ const changeLogCommand = require('./Commands/changelog');
 const callStaffCommand = require('./Commands/staff');
 const viewPilotsCommand = require('./Commands/pilots');
 const viewBids = require('./Commands/bids');
+const viewSchedules = require('./Commands/schedules');
 
 const routes = {
     changelog(client, args, sender) {
@@ -17,6 +18,9 @@ const routes = {
     },
     reservas(client, args, sender) {
         return viewBids(client, args, sender);
+    },
+    rotas(client, args, sender) {
+        return viewSchedules(client, args, sender);
     }
 }
 module.exports = {

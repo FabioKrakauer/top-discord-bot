@@ -6,5 +6,14 @@ module.exports = {
         client.channels.fetch(process.env.ADMIN_LOG_CHANNEL_ID).then(channel => {
             channel.send(message)
         });
+    },
+    isValidIcao(icao) {
+        if(icao.length < 4 || icao.length > 4) {
+            return false;
+        }
+        if(/\d/.test(icao)) {
+            return false;
+        }
+        return true;
     }
 }
