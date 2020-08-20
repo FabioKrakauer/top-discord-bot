@@ -2,12 +2,12 @@ const { DataTypes } = require('sequelize');
 require('dotenv').config();
 
 module.exports = (sequelize) => {
-    const Aircraft = sequelize.define('events', {
+    const EventsJump = sequelize.define('events', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
         },
-        airportICAO: {
+        airport: {
             type: DataTypes.STRING,
         },
         startAt: {
@@ -15,11 +15,14 @@ module.exports = (sequelize) => {
         },
         endAt: {
             type: DataTypes.DATE
+        },
+        createdBy:{
+            type: DataTypes.INTEGER
         }
     }, {
-        tableName: process.env.TABLE_PREFIX+'events',
+        tableName: process.env.TABLE_PREFIX+'eventsjump',
         freezeTableName: true,
         timestamps: true
     });
-    return Aircraft;
+    return EventsJump;
 };

@@ -3,8 +3,9 @@ const utils = require('./utils');
 const changeLogCommand = require('./Commands/changelog');
 const callStaffCommand = require('./Commands/staff');
 const viewPilotsCommand = require('./Commands/pilots');
-const viewBids = require('./Commands/bids');
-const viewSchedules = require('./Commands/schedules');
+const viewBidsCommand = require('./Commands/bids');
+const viewSchedulesCommand = require('./Commands/schedules');
+const createEventCommand = require('./Commands/createEvent');
 
 const routes = {
     changelog(client, args, sender) {
@@ -17,10 +18,13 @@ const routes = {
         return viewPilotsCommand(client, args, sender);
     },
     reservas(client, args, sender) {
-        return viewBids(client, args, sender);
+        return viewBidsCommand(client, args, sender);
     },
     rotas(client, args, sender) {
-        return viewSchedules(client, args, sender);
+        return viewSchedulesCommand(client, args, sender);
+    },
+    addEvento(client, args, sender) {
+        return createEventCommand(client, args,sender);
     }
 }
 module.exports = {

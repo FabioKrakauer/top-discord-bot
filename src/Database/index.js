@@ -11,6 +11,7 @@ const Pilots = require('./models/Pilots')(sequelize);
 const Aircraft = require('./models/Aircraft')(sequelize);
 const Schedules = require('./models/Schedules')(sequelize);
 const Bids = require('./models/Bids')(sequelize);
+const EventsJump = require('./models/EventJump')(sequelize);
 
 Aircraft.hasMany(Schedules,{
         foreignKey: 'id',
@@ -21,10 +22,7 @@ Schedules.belongsTo(Aircraft,{
 });
 
 Pilots.hasOne(Bids, {foreignKey: 'pilotid'});
-// Bids.belongsTo(Aircraft, {
-//     foreignKey: 'aircraftid',
-//     as: 'aeronave'
-// });
+
 Bids.belongsTo(Schedules, {
     foreignKey: 'routeid',
     as: 'rota'
@@ -35,10 +33,12 @@ Bids.belongsTo(Pilots, {
 });
 
 
+
 module.exports.sequelize = sequelize;
 module.exports.models = {
     Pilots,
     Schedules,
     Aircraft,
-    Bids
+    Bids,
+    EventsJump
 }
