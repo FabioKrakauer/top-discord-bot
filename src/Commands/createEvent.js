@@ -32,8 +32,8 @@ module.exports = async (client, args, sender) => {
         utils.error(sender.author, staff.error);
         return;
     }
-    args[3] += ' 00:00:00';
-    args[4] += ' 23:59:59';
+    args[3] += ' 03:00:00';
+    args[4] += ' 02:59:59';
     const newEvent = {
         airport: args[2].toUpperCase(),
         startAt: args[3],

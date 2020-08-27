@@ -6,6 +6,7 @@ const viewPilotsCommand = require('./Commands/pilots');
 const viewBidsCommand = require('./Commands/bids');
 const viewSchedulesCommand = require('./Commands/schedules');
 const createEventCommand = require('./Commands/createEvent');
+const jumpCommand = require('./Commands/jump');
 
 const routes = {
     changelog(client, args, sender) {
@@ -25,6 +26,9 @@ const routes = {
     },
     addEvento(client, args, sender) {
         return createEventCommand(client, args,sender);
+    },
+    jump(client, args, sender) {
+        return jumpCommand(client, args,sender);
     }
 }
 module.exports = {
