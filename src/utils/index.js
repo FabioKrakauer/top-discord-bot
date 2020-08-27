@@ -65,5 +65,9 @@ module.exports = {
     },
     formatDate(date) {
         return date.getDate() + "/" + ((date.getMonth() + 1) < 10 ? '0' +(date.getMonth() + 1) : (date.getMonth() + 1)) + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
-    }
+    },
+    getUTCTime() {
+        const today = new Date();
+        return today.getUTCFullYear() + "-" + (today.getUTCMonth() + 1) + "-" + today.getUTCDate() + " " + today.getUTCHours() + ":" + today.getUTCMinutes() + ":" + today.getUTCSeconds()
+    } 
 }

@@ -3,6 +3,7 @@ require('dotenv').config();
 
 const utils = require('../utils');
 const database = require("../Database");
+const { QueryTypes } = require('sequelize');
 
 module.exports = async (client, args, sender) => {
     if(args.length < 3) {
@@ -13,35 +14,28 @@ module.exports = async (client, args, sender) => {
         utils.error(sender.author, 'Digite um ICAO válido');
         return;
     }
-    const EventsJump = database.models.EventsJump;
-    const event = await EventsJump.findAll({
-        where: {
-            airport: args[2].toUpperCase()
-        }
-    });
-    let today = new Date();
-    console.log("Hoje agora são " + today.getTime() + " dia " + today.getUTCDate() + " mes " + (today.getUTCMonth() + 1)  + " ano " + today.getUTCFullYear() + " hora " + today.getUTCHours() + " min " + today.getUTCMinutes() + " SEC" + today.getUTCSeconds());
+    const pilot = utils.getPilotId(sender.member.nickname);
+    if(pilot.isValid == false) {
+        utils.error(sender.author, pilot.error);
+        return;
+    }
+    const today = utils.getUTCTime();
+    const query = "SELECT `airport` FROM `phpvms_eventsjump` WHERE `airport` = '"+args[2].toUpperCase() + "' AND `startAt` <= '"+today+"' AND `endAt` >= '"+today+"' LIMIT 1";
+    const event = await database.sequelize.query(query, { type: QueryTypes.SELECT });
 
-    // const event = await EventsJump.create(newEvent);
+    if(event.length == 0) {
+        utils.error(sender.author, "Não existe nenhum evento liberado hoje em " + args[2].toUpperCase());
+        return;
+    }
     
-    // let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-    // const startAt = new Date(event.dataValues.startAt);
-    // const endAt = new Date(event.dataValues.endAt);
-
-    // const eventAnnouncement = new Discord.MessageEmbed()
-    // .setColor('#FF5100')
-    // .setTitle('NOVO EVENTO CRIADO')
-    // .setDescription('Novo evento liberado na TOP Airlines')
-    // .setThumbnail(client.user.displayAvatarURL())
-    // .addFields(
-    //     { name: 'Aeroporto', value: event.dataValues.airport },
-    //     { name: 'Liberado dia: ', value: utils.formatDate(startAt), inline: true},
-    //     { name: 'Encerra dia: ', value: utils.formatDate(endAt), inline: true}
-    // )
-    // .setTimestamp()
-    // .setFooter('Copyright TOP Linhas Aéreas');
-    // client.channels.fetch('709211295689211940').then(channel => {
-    //     channel.send(eventAnnouncement)
-    // });
-    // utils.log(client, "O usuario " + sender.member.user.username + "#"+sender.member.user.discriminator + " adicionou um novo evento em " + args[2].toUpperCase());
+    const location = event[0].airport;
+    const updateLocationQuery = "UPDATE `fltbook_location` SET `arricao` = '"+location+"' WHERE `fltbook_location`.`pilot_id` = '"+pilot.databaseId+"'";
+    const addAdminLog = "INSERT INTO `phpvms_adminlog` (`id`, `pilotid`, `datestamp`, `message`) VALUES (NULL, '"+pilot.databaseId+"', '"+today+"', 'MASCOTOP: Pilto "+pilot.fullId+" Efetuou um jump gratuito para " + location + "')";
+    try {
+        await database.sequelize.query(updateLocationQuery);
+        await database.sequelize.query(addAdminLog);
+        sender.author.send('Você foi movido para o aeroporto ' + location + ' com succeso! Lembre-se de criar ou gerar charter!')
+    } catch (error) {
+        utils.error(sender.author, 'Erro interno no servidor! Codigo: ' + error);
+    }
 }
