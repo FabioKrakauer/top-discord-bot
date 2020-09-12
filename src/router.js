@@ -7,6 +7,7 @@ const viewBidsCommand = require('./Commands/bids');
 const viewSchedulesCommand = require('./Commands/schedules');
 const createEventCommand = require('./Commands/createEvent');
 const jumpCommand = require('./Commands/jump');
+const sayCommand = require('./Commands/say');
 
 const routes = {
     changelog(client, args, sender) {
@@ -29,7 +30,10 @@ const routes = {
     },
     jump(client, args, sender) {
         return jumpCommand(client, args,sender);
-    }
+    },
+    falar(client, args, sender) {
+        return sayCommand(client, args,sender);
+    },
 }
 module.exports = {
     execute_command(client, message) {
