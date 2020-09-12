@@ -15,4 +15,5 @@ module.exports = (client, args, sender) => {
         message += args[i] + " ";
     }
     sender.channel.send(message);
+    sender.delete({timeout: 1, reason: 'Automaticamente excluido pelo bot'});
 }
