@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const changelog = require("./Commands/changelog");
 const client = new Discord.Client();
 
 require("dotenv").config();

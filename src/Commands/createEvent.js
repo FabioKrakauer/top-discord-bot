@@ -43,7 +43,6 @@ module.exports = async (client, args, sender) => {
     const EventsJump = database.models.EventsJump;
     const event = await EventsJump.create(newEvent);
     
-    let options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     const startAt = new Date(event.dataValues.startAt);
     const endAt = new Date(event.dataValues.endAt);
 
@@ -59,8 +58,11 @@ module.exports = async (client, args, sender) => {
     )
     .setTimestamp()
     .setFooter('Copyright TOP Linhas Aéreas');
-    client.channels.fetch('709211295689211940').then(channel => {
+    client.channels.fetch('776961832429813783').then(channel => {
         channel.send(eventAnnouncement)
+    });
+    client.channels.fetch('776961832429813783').then(channel => {
+        channel.send("@everyone Novo evento liberado! Use o comando " + process.env.COMMAND_PREFIX + " jump" + " " + event.dataValues.airport + " em #comandos-bot");
     });
     utils.log(client, "O usuario " + sender.member.user.username + "#"+sender.member.user.discriminator + " adicionou um novo evento em " + args[2].toUpperCase());
 }
