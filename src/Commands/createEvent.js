@@ -5,7 +5,7 @@ const utils = require('../utils');
 const database = require("../Database");
 
 module.exports = async (client, args, sender) => {
-    if(!sender.member._roles.includes(process.env.ADMIN_ROLE_ID)){
+    if(!sender.member._roles.includes(process.env.ADMIN_ROLE_ID) && !sender.member._roles.includes(process.env.EVENTS_ROLE_ID)){
         utils.error(sender.author, 'Sem permissão! Infelizmente você não possui permissão para isto!');
         return;
     }
