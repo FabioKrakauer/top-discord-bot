@@ -9,6 +9,7 @@ const createEventCommand = require('./Commands/createEvent');
 const jumpCommand = require('./Commands/jump');
 const sayCommand = require('./Commands/say');
 const cleanCommand = require('./Commands/delete');
+const airportCommand = require('./Commands/addAirport');
 
 const routes = {
     changelog(client, args, sender) {
@@ -37,6 +38,9 @@ const routes = {
     },
     apagar(client, args, sender) {
         return cleanCommand(client, args,sender);
+    },
+    addAirport(client, args, sender) {
+        return airportCommand(client, args,sender);
     },
 }
 module.exports = {

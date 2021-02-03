@@ -12,6 +12,7 @@ const Aircraft = require('./models/Aircraft')(sequelize);
 const Schedules = require('./models/Schedules')(sequelize);
 const Bids = require('./models/Bids')(sequelize);
 const EventsJump = require('./models/EventJump')(sequelize);
+const Airport = require('./models/Airport')(sequelize);
 
 Aircraft.hasMany(Schedules,{
         foreignKey: 'id',
@@ -40,5 +41,6 @@ module.exports.models = {
     Schedules,
     Aircraft,
     Bids,
-    EventsJump
+    EventsJump,
+    Airport
 }
